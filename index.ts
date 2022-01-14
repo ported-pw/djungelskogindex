@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { mesh } from "topojson-client";
-import topology from "world-atlas/land-10m.json";
+import topology from "world-atlas/countries-10m.json";
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color();  // white background
@@ -30,7 +30,6 @@ function wireframe(multilinestring, radius, material) {
         vertices.push(p0 = p1, p1 = vertex(P[i], radius));
       }
     }
-    console.log(vertices);
     const positions = [];
     for (const vertex of vertices) {
         positions.push(vertex.x, vertex.y, vertex.z);
