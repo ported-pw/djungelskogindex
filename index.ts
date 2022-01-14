@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { mesh } from "topojson-client";
-import topology from "world-atlas/countries-10m.json";
+import topology from "world-atlas/countries-110m.json";
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color();  // white background
@@ -39,10 +39,16 @@ function wireframe(multilinestring, radius, material) {
 }
 
 const radius = 2;
-const topoMesh = mesh(topology, topology.objects.land);
-const land = wireframe(topoMesh, radius, new THREE.LineBasicMaterial({color: 0xff0000}));
 
-scene.add(land);
+const geometry = new THREE.SphereGeometry( 1.96, 50, 50 );
+const material = new THREE.MeshBasicMaterial( { color: 0xcbe4f9 } );
+const sphere = new THREE.Mesh( geometry, material );
+scene.add( sphere );
+
+const topoMesh = mesh(topology, topology.objects.countries);
+const countries = wireframe(topoMesh, radius, new THREE.LineBasicMaterial({color: 0xff0000}));
+
+scene.add(countries);
 
 camera.position.z = 5;
 

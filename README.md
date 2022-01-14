@@ -14,3 +14,14 @@ npm run dev
 npm install
 npm run build
 ```
+
+### Resources
+
+Happiness data:
+2021 [World Happiness Report](https://worldhappiness.report/) via [Our World in Data](https://ourworldindata.org/happiness-and-life-satisfaction#happiness-across-the-world-today)
+
+Colour scheme:
+https://www.schemecolor.com/light-and-pale.php
+
+Country borders / data:
+https://github.com/topojson/world-atlas
