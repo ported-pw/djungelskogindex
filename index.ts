@@ -54,6 +54,8 @@ camera.position.z = 5;
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enablePan = false;
+controls.minDistance = 2.6;
+controls.maxDistance = 5;
 
 window.addEventListener( 'resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
