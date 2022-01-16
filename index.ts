@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
 import { mesh } from "topojson-client";
 import topology from "world-atlas/countries-110m.json";
 
@@ -22,33 +23,31 @@ function vertex([longitude, latitude], radius) {
     );
 }
 
-function wireframe(multilinestring, radius, material) {
-    const geometry = new THREE.BufferGeometry();
-    const vertices = [];
+function buildMesh(multilinestring, radius, material) {
+    const points = [];
     for (const P of multilinestring.coordinates) {
       for (let p0, p1 = vertex(P[0], radius), i = 1; i < P.length; ++i) {
-        vertices.push(p0 = p1, p1 = vertex(P[i], radius));
+        points.push(p0 = p1, p1 = vertex(P[i], radius));
       }
     }
-    const positions = [];
-    for (const vertex of vertices) {
-        positions.push(vertex.x, vertex.y, vertex.z);
-    }
-    geometry.setAttribute( 'position', new THREE.BufferAttribute(new Float32Array(positions), 3 ) );
-    return new THREE.LineSegments(geometry, material);
+    const geometry = new ConvexGeometry(points);
+    return new THREE.Mesh(geometry, material);
 }
 
 const radius = 2;
 
 const geometry = new THREE.SphereGeometry( 1.96, 50, 50 );
-const material = new THREE.MeshBasicMaterial( { color: 0xcbe4f9 } );
+const material = new THREE.MeshBasicMaterial( { color: 0xd7edfa } );
 const sphere = new THREE.Mesh( geometry, material );
 scene.add( sphere );
 
-const topoMesh = mesh(topology, topology.objects.countries);
-const countries = wireframe(topoMesh, radius, new THREE.LineBasicMaterial({color: 0xff0000}));
+for (const country of topology.objects.countries.geometries) {
+  const topoMesh = mesh(topology, country);
+  const countryMesh = buildMesh(topoMesh, radius, new THREE.MeshBasicMaterial({color: 0xd9f4e0}));
+  
+  scene.add(countryMesh);
+}
 
-scene.add(countries);
 
 camera.position.z = 5;
 

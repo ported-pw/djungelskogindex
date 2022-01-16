@@ -21,7 +21,7 @@ Happiness data:
 2021 [World Happiness Report](https://worldhappiness.report/) via [Our World in Data](https://ourworldindata.org/happiness-and-life-satisfaction#happiness-across-the-world-today)
 
 Colour scheme:
-https://www.schemecolor.com/light-and-pale.php
+https://www.schemecolor.com/soft-cuddle.php
 
 Country borders / data:
 https://github.com/topojson/world-atlas
